@@ -1,4 +1,4 @@
-package com.db.client;
+package com.db.lib;
 
 public class Algo {
     public void doAlgo() {
