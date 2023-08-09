@@ -8,10 +8,18 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ JiraClient class represent the implementation of fetching the Signal related information from JIRA and modifying it
+ according to the domain objects
+
+ **This layer can be cached to avoid frequent JIRA API Calls
+ */
 @Service
 public class JiraClient {
     public List<SignalSpec> fetchSignalSpecs(){
-        /* JIRA API Integration to fetch signal list and parse it to match the objects */
+        /*
+        JIRA API Integration to fetch signal list and parse it to match the objects
+        */
         List<SignalSpec> signalSpecList = new ArrayList<>();
 
         /*Start Setting Sample Data*/
@@ -33,5 +41,13 @@ public class JiraClient {
 
         signalSpecList.add(signal1);
         return signalSpecList;
+    }
+
+    List<String> fetchJiraTickets(){
+        throw new UnsupportedOperationException();
+    }
+
+    List<SignalSpec> parseTicketList(List<String> ticketList){
+        throw new UnsupportedOperationException();
     }
 }

@@ -18,6 +18,8 @@ public class TradingApplication {
 
     @Bean
     public Map<String, AlgoGeneric> genericAlgoTemplate(){
+        //Setup the template for algo operation with matching implementation classes
+
         Map<String, AlgoGeneric> algoGenericMap = new HashMap<>();
         algoGenericMap.put("do", new AlgoDo());
         algoGenericMap.put("cancel", new AlgoCancel());
@@ -30,6 +32,8 @@ public class TradingApplication {
 
     @Bean
     public Map<String, AlgoParameterized> parameterizedAlgoTemplate(){
+        //Setup the template for algo operation with matching implementation classes
+
         Map<String, AlgoParameterized> algoParameterizedMap = new HashMap<>();
         algoParameterizedMap.put("setParam", new AlgoParam());
         return algoParameterizedMap;

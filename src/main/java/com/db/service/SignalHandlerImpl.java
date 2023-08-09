@@ -34,15 +34,20 @@ public class SignalHandlerImpl implements SignalHandler {
     public void handleSignal(int signal) {
         List<SignalSpec> signalSpecList = jiraClient.fetchSignalSpecs();
 
+        //Filter Signal
         Optional<SignalSpec> optionalSignalSpec = signalSpecList.stream().filter(i -> i.getSignalId().equals((long)signal)).findFirst();
         if(optionalSignalSpec.isPresent()){
             performAlgo(optionalSignalSpec.get());
         }
         else{
+            //Evict the JiraClient cache, re-fetch and filter
+
+            //If still not found
             throw new SignalNotFoundException();
         }
     }
 
+    //Perform the algorithm method based on type and operation
     private void performAlgo(SignalSpec signalSpec) {
         for (SignalAlgoDetail signalAlgoDetail : signalSpec.getAlgoDetailList()) {
             if (signalAlgoDetail.getSignalAlgoType().equals(SignalAlgoType.GENERIC)) {
