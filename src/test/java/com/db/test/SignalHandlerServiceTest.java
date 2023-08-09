@@ -1,6 +1,7 @@
 package com.db.test;
 
 import com.db.client.JiraClient;
+import com.db.exceptions.SignalNotFoundException;
 import com.db.lib.SignalHandler;
 import com.db.model.SignalAlgoDetail;
 import com.db.model.SignalAlgoType;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -73,6 +75,12 @@ public class SignalHandlerServiceTest {
         assertThat(outputStreamCaptor.toString().trim(), containsString("setAlgoParam1,60"));
         assertThat(outputStreamCaptor.toString().trim(), containsString("performCalc"));
         assertThat(outputStreamCaptor.toString().trim(), endsWith("submitToMarket"));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenSignalIdFound(){
+        Throwable thrown = assertThrows(SignalNotFoundException.class, () -> signalHandler.handleSignal(3));
+        assertThat(thrown, instanceOf(SignalNotFoundException.class));
     }
 
     private List<SignalSpec> generateSampleSignals(){

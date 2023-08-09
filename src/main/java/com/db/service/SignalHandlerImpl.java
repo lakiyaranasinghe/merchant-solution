@@ -1,6 +1,7 @@
 package com.db.service;
 
 import com.db.client.JiraClient;
+import com.db.exceptions.SignalNotFoundException;
 import com.db.lib.SignalHandler;
 import com.db.model.SignalAlgoDetail;
 import com.db.model.SignalAlgoType;
@@ -36,6 +37,9 @@ public class SignalHandlerImpl implements SignalHandler {
         Optional<SignalSpec> optionalSignalSpec = signalSpecList.stream().filter(i -> i.getSignalId().equals((long)signal)).findFirst();
         if(optionalSignalSpec.isPresent()){
             performAlgo(optionalSignalSpec.get());
+        }
+        else{
+            throw new SignalNotFoundException();
         }
     }
 
