@@ -6,10 +6,11 @@ import com.db.model.SignalSpec;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /*
- JiraClient class represent the implementation of fetching the Signal related information from JIRA and modifying it
+ JiraClient class represent the implementation of fetching the new Signal related information from JIRA and modifying it
  according to the domain objects
 
  **This layer can be cached to avoid frequent JIRA API Calls
@@ -18,11 +19,21 @@ import java.util.List;
 public class JiraClient {
     public List<SignalSpec> fetchSignalSpecs(){
         /*
-        JIRA API Integration to fetch signal list and parse it to match the objects
+        JIRA API Integration to fetch new signal list and parse it to match the objects
         */
-        List<SignalSpec> signalSpecList = new ArrayList<>();
-
+        List<String> ticketList = this.fetchJiraTickets();
+        return this.parseTicketList(ticketList);
         /*Start Setting Sample Data*/
+    }
+
+    //Fetch Tickets from JIRA
+    List<String> fetchJiraTickets(){
+        return Collections.singletonList("Ticket List");
+    }
+
+    //Parse Tickets to Domain SignalSpec Object
+    List<SignalSpec> parseTicketList(List<String> ticketList){
+        List<SignalSpec> signalSpecList = new ArrayList<>();
         SignalSpec signal1 = new SignalSpec(1L);
         List<SignalAlgoDetail> signalAlgoDetailList = new ArrayList<>();
         SignalAlgoDetail signalAlgoDetail1 = new SignalAlgoDetail("setup", SignalAlgoType.GENERIC);
@@ -41,13 +52,5 @@ public class JiraClient {
 
         signalSpecList.add(signal1);
         return signalSpecList;
-    }
-
-    List<String> fetchJiraTickets(){
-        throw new UnsupportedOperationException();
-    }
-
-    List<SignalSpec> parseTicketList(List<String> ticketList){
-        throw new UnsupportedOperationException();
     }
 }
