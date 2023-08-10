@@ -1,30 +1,32 @@
 package com.db.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.List;
 
 /*
  The SignalSpec class represent an individual signal and it's operations
  */
+
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
 public class SignalSpec {
+    @Id
+    @GeneratedValue
+    private Long id;
     public SignalSpec(Long signalId) {
         this.signalId = signalId;
     }
 
     //The Signal identifier
-    private final Long signalId;
+    private Long signalId;
 
+    @OneToMany(cascade = CascadeType.ALL)
     //Operations to be performed for the signal
     private List<SignalAlgoDetail> algoDetailList;
-
-    public Long getSignalId() {
-        return signalId;
-    }
-
-    public List<SignalAlgoDetail> getAlgoDetailList() {
-        return algoDetailList;
-    }
-
-    public void setAlgoDetailList(List<SignalAlgoDetail> algoDetailList) {
-        this.algoDetailList = algoDetailList;
-    }
 }

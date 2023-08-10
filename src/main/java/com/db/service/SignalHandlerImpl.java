@@ -1,7 +1,5 @@
 package com.db.service;
 
-import com.db.client.JiraClient;
-import com.db.exceptions.SignalNotFoundException;
 import com.db.lib.SignalHandler;
 import com.db.model.SignalAlgoDetail;
 import com.db.model.SignalAlgoType;
@@ -11,40 +9,27 @@ import com.db.model.algo.AlgoParameterized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class SignalHandlerImpl implements SignalHandler {
-    private final JiraClient jiraClient;
+    private final SignalSpecService signalSpecService;
     private final Map<String, AlgoGeneric> algoGenericMap;
     private final Map<String, AlgoParameterized> algoParameterizedMap;
 
     @Autowired
-    public SignalHandlerImpl(JiraClient jiraClient,
+    public SignalHandlerImpl(SignalSpecService signalSpecService,
                              Map<String, AlgoGeneric> algoGenericMap,
                              Map<String, AlgoParameterized> algoParameterizedMap) {
-        this.jiraClient = jiraClient;
+        this.signalSpecService = signalSpecService;
         this.algoGenericMap = algoGenericMap;
         this.algoParameterizedMap = algoParameterizedMap;
     }
 
     @Override
     public void handleSignal(int signal) {
-        List<SignalSpec> signalSpecList = jiraClient.fetchSignalSpecs();
-
-        //Filter Signal
-        Optional<SignalSpec> optionalSignalSpec = signalSpecList.stream().filter(i -> i.getSignalId().equals((long)signal)).findFirst();
-        if(optionalSignalSpec.isPresent()){
-            performAlgo(optionalSignalSpec.get());
-        }
-        else{
-            //Evict the JiraClient cache, re-fetch and filter
-
-            //If still not found
-            throw new SignalNotFoundException();
-        }
+        SignalSpec signalSpec = signalSpecService.fetchSignalById((long)signal);
+        performAlgo(signalSpec);
     }
 
     //Perform the algorithm method based on type and operation
