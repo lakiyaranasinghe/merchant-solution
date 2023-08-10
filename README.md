@@ -29,3 +29,15 @@ You can run unit tests using following command
 ```shell
 mvn test
 ```
+
+## How to Test Manually
+
+You can add a new json record with a new signal id and desired operations to data.json and run the project. 
+Following are the operation keywords
+
+- do
+- cancel
+- reverse
+- submitMarket
+- performCalculation
+- setup

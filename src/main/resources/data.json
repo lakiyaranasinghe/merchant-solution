@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "signalId": 1,
+    "algoDetailList": [
+        {
+          "operation": "setup",
+          "signalAlgoType": 0
+        },
+        {
+          "operation": "setParam",
+          "signalAlgoType": 1,
+          "param1": 1,
+          "param2": 60
+        },
+        {
+          "operation": "performCalculation",
+          "signalAlgoType": 0
+        },
+        {
+          "operation": "submitMarket",
+          "signalAlgoType": 0
+        }
+    ]
+  },
+  {
+    "id": 2,
+    "signalId": 2,
+    "algoDetailList": [
+      {
+        "operation": "reverse",
+        "signalAlgoType": 0
+      },
+      {
+        "operation": "setParam",
+        "signalAlgoType": 1,
+        "param1": 1,
+        "param2": 80
+      },
+      {
+        "operation": "submitMarket",
+        "signalAlgoType": 0
+      }
+    ]
+  }
+]
