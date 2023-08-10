@@ -3,7 +3,7 @@ Sample Trading Application Assignment
 
 ### High Level Solution
 
-![](https://i.imgur.com/xCa7Xjp.png)
+![](https://i.imgur.com/6kv3vBu.png)
 
 ## Requirements
 
@@ -41,3 +41,7 @@ Following are the operation keywords
 - submitMarket
 - performCalculation
 - setup
+
+## Improvements to be done
+
+Cache the signal spec list
